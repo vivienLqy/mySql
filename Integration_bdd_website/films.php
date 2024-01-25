@@ -7,14 +7,6 @@
 
 
   <h1>Les films Utopia</h1>
-  <?php
-  $var1 ='a';
-  echo $var1;
-  $var1=' ';
-  echo $var1;
-  $var1= 'b';
-  echo $var1;
-  ?>
  
   <?php foreach ($films as $film) { ?>
     <p>
