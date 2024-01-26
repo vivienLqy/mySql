@@ -6,6 +6,12 @@ function findAllMovies ($db) {
     $films = $requete->fetchAll();
     return $films;
 }
+function findPictureMovies ($db,  $currentId) {
+    $sql = "SELECT * FROM `picture` WHERE movieId = $currentId";
+    $requete = $db->query($sql);
+    $films = $requete->fetch();
+    return $films;
+}
 
 function findMovies ($db, $currentId) {
     $sql = "SELECT 
@@ -26,3 +32,24 @@ function findMovies ($db, $currentId) {
     $result = $requete->fetch();
     return $result;
 }
+
+function getStar($rating) {
+
+    $starRating = round($rating);
+    $note = $starRating / 2;
+    $starSplit = explode('.', $note);
+    $starNbr = 0;
+
+    for ($i=0; $i < $starSplit[0]  ; $i++) { 
+        echo '<i class="bi bi-star-fill"></i>';
+        $starNbr++;
+    }
+    if (isset($starSplit[1])){
+        echo '<i class="bi bi-star-half"></i>';
+        $starNbr++;
+    }
+    for ($i=0; $i < 5 - $starNbr ; $i++) { 
+        echo '<i class="bi bi-star"></i>';
+    }
+}
+

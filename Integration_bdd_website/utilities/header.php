@@ -3,25 +3,9 @@ require_once dirname(__DIR__) . ('/config/config.php');
 require_once dirname(__DIR__) . ('/function/database.fn.php');
 $db = getPDOlink($config);
 
-$domain = 'http://localhost:8000/';
-$index_page = $domain;
-$films_page = $domain . 'films.php';
-$contact_page = $domain . 'contact.php';
-
-$index_name = 'Les film de la semaine';
-$films_name = 'Tous les fils à l\'affiche';
-$contact_name = 'Contactez nous';
-
-$current_url = $_SERVER['SCRIPT_NAME'];
-if(strrpos($index_page, $current_url)!== false || strpos($index_page . 'index.php', $current_url) !== false):
-  $title = $index_name;
-  elseif(strrpos($films_page, $current_url) !== false):
-    $title = $films_name;
-  elseif(strrpos($contact_page, $current_url) !== false):
-    $title = $contact_name;
-  endif;
+require_once dirname(__DIR__) . ('/config/headerConfig.php');
+require_once dirname(__DIR__) . ('/function/header.fn.php');
 ?>
-
 <!DOCTYPE html>
 <html lang="FR-fr">
 
@@ -42,41 +26,44 @@ if(strrpos($index_page, $current_url)!== false || strpos($index_page . 'index.ph
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid px-4 px-lg-5">
-      <a class="navbar-brand" href="/">
-        <img src="/assets/img/utopia-logo.png" alt="Logo" width="80" height="80" class="d-inline-block">
-        Cinema Utopia
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
-          class="navbar-toggler-icon"></span></button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 col-12 justify-content-end">
-          <li class="nav-item"><a class="nav-link active" aria-current="page" href="<?= $index_page ?>">Accueil</a></li>
-          <li class="nav-item"><a class="nav-link" href="<?= $films_page ?>">Les films</a></li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">Contact</a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#!">Tous les cinemas</a></li>
-              <li>
-                <hr class="dropdown-divider" />
-              </li>
-              <li><a class="dropdown-item" href="#!">Formulaire de contact</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <header class="py-5 overflow-hidden" style="height:500px ;">
-    <div class="container-fluid px-4 px-lg-5 my-5 position-relative">
-      <img src="assets/img/affiche.jpg" alt="img de bckground"
-        class=" w-100 position-absolute top-50 start-50 translate-middle">
-      <div class="text-center text-white position-absolute h-100 top-50 start-50 translate-middle">
-        <h1 class="display-4 fw-bolder"><?= $title ?></h1>
-        <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
-      </div>
-    </div>
-  </header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid px-4 px-lg-5">
+            <a class="navbar-brand align-item-center" href="/"> <img src="/assets/img/utopia-logo.png" alt="Logo" width="100" height="80" class="d-inline-block">Cinéma Utopia</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 col-12 justify-content-end">
+                    <li class="nav-item">
+                        <a class="nav-link
+                        <?= isActive ($index_page, $current_url); ?>
+                        <?= isActive ('/index.php', $current_url); ?>
+                        " aria-current="page" href="<?= $index_page; ?>">Accueil</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link
+                        <?= isActive ($films_page, $current_url); ?>
+                        " href="<?= $films_page; ?>">Les films</a>
+                      </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle
+                        <?= isActive ($contact_page, $current_url); ?>" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Contact</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="<?= $contact_page; ?>">Tous les cinémas</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li><a class="dropdown-item" href="<?= $contact_page; ?>">Formulaire de contact</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-black overflow-hidden" style="height: 500px;">
+        <div class="container-fluid position-relative h-100">
+            <img class="position-absolute top-50 start-50 translate-middle w-100 h-100" src="/assets/img/affiche.jpg" alt="Image de background">
+            <div class="position-absolute top-50 start-50 translate-middle align-items-center px-5 py-3 bg-dark bg-opacity-50 text-center text-white rounded-3">
+                <h1 class="display-4 fw-bolder"><?= isset($title) ? $title : 'Mon titre par défaut'; ?></h1>
+            </div>
+        </div>
+    </header>

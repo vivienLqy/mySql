@@ -13,5 +13,6 @@
       <a href="mapage.php?id=<?= $film['id'] ?>"><?= $film['title'] ?></a>
     </p>
   <?php } ?>
+  <?php require_once __DIR__ . ('/utilities/footer.php'); ?>
 </body>
 </html>

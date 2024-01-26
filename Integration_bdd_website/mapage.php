@@ -3,24 +3,27 @@
     require_once  __DIR__ . ('/function/database.fn.php');
     $db = getPDOlink($config);
     require_once __DIR__ . ('/function/movies.fn.php');
-    $film = findMovies($db, $_GET['id']);
-    $title = $film['title'];
-    require_once __DIR__ . ('/utilities/header.php');
 
+    if (isset($_GET['id']) || empty($film['id'])) {
+      $film = findMovies($db, $_GET['id']);
+      $title = $film['title'];
+    } else {
+      header("Location: /");
+    }
+
+    
+    require_once __DIR__ . ('/utilities/header.php');
+    
+    $picture = findPictureMovies($db, $_GET['id']);
+    $path = $picture['pathImg'];
 
 ?>
 
-  <h2>Detail du film : <?= $title ?></h2>
-  <p>année de réalisation : <?= $film['year_released'] ?></p>
-  <p>par : <?= $film['director'] ?></p>
-  <p>de : <?= $film['distributeur'] ?></p>
-  <p>note des spéctateurs : <?= $film['rating'] ?></p>
-  <p>nbr d'entrés : <?= $film['box_office'] ?></p>
-  <p>durée : <?= $film['duration'] ?></p>
-  <p>coût de production : <?= $film['budget'] ?></p>
-  <p>genre : <?= $film['genre'] ?></p>
-  <p>languages : <?= $film['languages'] ?></p>
-  
-<!-- Affichent les détails du film à l’aide des valeurs du tableau $film -->
+  <div class="text-center my-5">
+    <h1>Detail du film <h2>
+  </div>
+  <?php require_once __DIR__ . ('/utilities/card.php'); ?>
+  <?php require_once __DIR__ . ('/utilities/footer.php'); ?>
+
 </body>
 </html>
