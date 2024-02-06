@@ -33,6 +33,13 @@ function findMovies ($db, $currentId) {
     return $result;
 }
 
+function top3Movies ($db , $limit) {
+    $sql = "SELECT * FROM movies ORDER BY rating DESC LIMIT $limit;";
+    $requete = $db->query($sql);
+    $films = $requete->fetchAll();
+    return $films;
+    
+}
 function getStar($rating) {
 
     $starRating = round($rating);

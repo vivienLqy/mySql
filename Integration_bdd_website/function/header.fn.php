@@ -1,7 +1,7 @@
 <?php
 function isActive($page, $url) {
     if (strpos($page, $url) !== FALSE) {
-        echo 'active';
+        echo 'active text-uppercase';
     }
 }
 if(strrpos($index_page, $current_url)!== false || strpos($index_page . 'index.php', $current_url) !== false):

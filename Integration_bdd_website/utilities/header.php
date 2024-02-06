@@ -1,7 +1,26 @@
 <?php
+
+// session_start(): demarre une session_abort
+// session_id(): retourne l'id de la session
+// session_register($variable): enregistre une variable dans la sessions
+// session_unregister($variable): effacer une variable dans la sessions
+// session_name(): retourn le nom de la session
+// session_destroy(): detruit la sessions en cours
+// unset($_SESSION): vide toute la session de ses variables
+// session_destroy
+
+
 require_once dirname(__DIR__) . ('/config/config.php');
 require_once dirname(__DIR__) . ('/function/database.fn.php');
 $db = getPDOlink($config);
+
+date_default_timezone_set('EUROPE/Paris');
+setlocale(LC_TIME,'fr_FR.UTF8', 'fra');
+
+
+if (empty(session_id())) {
+    session_start();
+}
 
 require_once dirname(__DIR__) . ('/config/headerConfig.php');
 require_once dirname(__DIR__) . ('/function/header.fn.php');
@@ -25,25 +44,25 @@ require_once dirname(__DIR__) . ('/function/header.fn.php');
   <title>Utopia</title>
 </head>
 
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<body class="bg-secondary">
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
         <div class="container-fluid px-4 px-lg-5">
-            <a class="navbar-brand align-item-center" href="/"> <img src="/assets/img/utopia-logo.png" alt="Logo" width="100" height="80" class="d-inline-block">Cinéma Utopia</a>
+            <a class="navbar-brand align-item-center" href="/"> <img src="/assets/img/utopia-logo.png" alt="Logo" width="100" height="80" class="d-inline-block text-light"><p class="">Cinéma Utopia</p></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 col-12 justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link
+                        <a class="nav-link text-light
                         <?= isActive ($index_page, $current_url); ?>
                         <?= isActive ('/index.php', $current_url); ?>
                         " aria-current="page" href="<?= $index_page; ?>">Accueil</a></li>
                     <li class="nav-item">
-                        <a class="nav-link
+                        <a class="nav-link text-light
                         <?= isActive ($films_page, $current_url); ?>
                         " href="<?= $films_page; ?>">Les films</a>
                       </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle
+                    <li class="nav-item text-light dropdown">
+                        <a class="nav-link text-light dropdown-toggle
                         <?= isActive ($contact_page, $current_url); ?>" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Contact</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="<?= $contact_page; ?>">Tous les cinémas</a></li>
